@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: runtrail
+          POSTGRES_PASSWORD: runtrail
+          POSTGRES_DB: runtrail_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U runtrail"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      RUNTRAIL_TEST_POSTGRES_DSN: "host=localhost port=5432 user=runtrail password=runtrail dbname=runtrail_test"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -e ".[dev]" mypy
+      - run: ruff check src tests examples
+      - run: mypy src/runtrail --ignore-missing-imports
+      - run: pytest --cov=runtrail --cov-report=term-missing

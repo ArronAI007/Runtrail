@@ -1,0 +1,29 @@
+services:
+  runtrail:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      RUNTRAIL_STORE_DSN: postgresql://runtrail:runtrail@db:5432/runtrail
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: runtrail
+      POSTGRES_PASSWORD: runtrail
+      POSTGRES_DB: runtrail
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U runtrail"]
+      interval: 2s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - runtrail_pgdata:/var/lib/postgresql/data
+
+volumes:
+  runtrail_pgdata:
