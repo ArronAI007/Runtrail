@@ -5,10 +5,8 @@
 > ⚠️ **Runtrail 不是 Agent 开发框架**。
 > 它是 Agent 的测试底座：可以拿来跑、评测、对比任意 Agent（自定义 / LangGraph / AutoGen / 远程 HTTP‑Agent）。
 
-[![PyPI](https://img.shields.io/pypi/v/runtrail)](https://pypi.org/project/runtrail/)
-[![Docker](https://img.shields.io/docker/pulls/xxx/runtrail)](https://hub.docker.com/r/xxx/runtrail)
-[![CI Status](https://github.com/xxx/runtrail/actions/workflows/ci.yml/badge.svg)](https://github.com/xxx/runtrail/actions/workflows/ci.yml)
-[![License](https://img.shields.io/github/license/xxx/runtrail)](LICENSE)
+[![CI Status](https://github.com/ArronAI007/Runtrail/actions/workflows/ci.yml/badge.svg)](https://github.com/ArronAI007/Runtrail/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/ArronAI007/Runtrail)](LICENSE)
 
 ## ✨ 为什么做这个项目｜差异化亮点
 
@@ -28,8 +26,13 @@
 ## 🚀 快速开始
 
 ### 1. 安装
+
+> ⚠️ PyPI 上 `runtrail` 这个包名已被另一个无关项目占用，`pip install runtrail` 装的不是本项目。目前请从源码安装：
+
 ```bash
-pip install runtrail
+git clone https://github.com/ArronAI007/Runtrail.git
+cd Runtrail
+pip install -e ".[ui]"
 ```
 
 ### 2. 最小示例：评测一个自定义 Agent

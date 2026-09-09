@@ -2,8 +2,12 @@
 
 ## 安装
 
+> ⚠️ PyPI 上 `runtrail` 这个包名已被另一个无关项目占用，`pip install runtrail` 装的不是本项目。目前请从源码安装：
+
 ```bash
-pip install runtrail
+git clone https://github.com/ArronAI007/Runtrail.git
+cd Runtrail
+pip install -e ".[ui]"
 ```
 
 ## 运行第一个评测
